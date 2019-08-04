@@ -1,0 +1,25 @@
+<div style="background:#555;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center">
+  
+  <div style="padding:30px;width:330px;height:250px;border-radius:4px;background:white">
+    
+      <input style="margin-top:20px" type="text" placeholder="Email" [(ngModel)]="email" />
+      <input style="margin-top:20px" type="password" placeholder="Contraseña" [(ngModel)]="password" />
+      <div *ngIf="isErr" style="color:red">
+        Email o contraseña incorrectos
+      </div>
+
+      <div style="margin-top:20px;width:100%"></div>
+
+      <button *ngIf="!isLoading" (click)="login()" type="button" class="btn btn-primary btn-block">
+          Iniciar sesión
+      </button>
+
+      <button *ngIf="isLoading" type="button" disabled  class="btn btn-primary btn-block">
+          Iniciar sesión
+      </button>
+
+
+
+  </div>
+
+</div>

@@ -1,0 +1,183 @@
+<div style="margin-top:15px;background:white;box-shadow: 0 0 15px #bbb;border-radius:6px">
+
+  <div style="border-radius:6px 6px 0px 0px;color:#4e73df;background:#f8f9fc;padding:10px;font-weight:550">
+    Riders
+  </div>
+
+  <div style="padding:15px;display:flex;align-items:center;justify-content:space-between">
+    <div class="nav-item dropdown" style="color:#555;display:flex;align-items:center">
+      Mes de
+      <div class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"
+        style="padding:5px;padding-left:10px;padding-right:10px;border:1px solid #eee;border-radius:6px;margin-left:10px">
+        Agosto
+      </div>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item">Agosto</a>
+        <a class="dropdown-item">Septiembre</a>
+      </div>
+    </div>
+
+    <div style="display:flex;">
+        <button (click)="newRider = true" type="button" class="btn btn-outline-primary" style="margin-right:20px">
+            <i class="fas fa-coins"></i>
+            Pagar deuda
+          </button>
+    
+        <button (click)="newRider = true" type="button" class="btn btn-outline-primary">
+          <i class="fas fa-plus"></i>
+          Crear Rider
+        </button>
+    </div>
+    
+
+  </div>
+
+
+
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Valoración</th>
+        <th scope="col">Vehículo</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Pedidos</th>
+        <th scope="col">Ganancia</th>
+        <th scope="col">Deuda</th>
+        <th scope="col">Estado deuda</th>
+        <th scope="col">Activo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr (click)="hola()">
+        <th scope="row" >1</th>
+        <td>Oscar Garcia Fuentes</td>
+        <td><i class="fas fa-star" style="color:gold"></i>  3.0</td>
+        <td>Bicicleta</td>
+        <td>9738122</td>
+        <td>322</td>
+        <td>$531200</td>
+        <td>$75320</td>
+        <td>
+          <span class="badge badge-success">Pagada</span>
+        </td>
+
+        <td>
+            <i (click)="isActive = false" *ngIf="isActive" class="fas fa-toggle-off" style="color:#bbb;font-size:24px"></i>
+
+          <i (click)="isActive = true" *ngIf="!isActive" class="fas fa-toggle-on" style="color:dodgerblue;font-size:24px"></i>
+          <!-- <button type="button" class="btn btn-secondary">Habilitar</button> -->
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td><i class="fas fa-star" style="color:gold"></i>  4.3</td>
+
+        <td>Camioneta</td>
+        <td>9738122</td>
+        <td>120</td>
+        <td>$32500</td>
+
+        <td>$15000</td>
+        <td>
+          <span class="badge badge-secondary">Pendiente</span>
+        </td>
+        <td>
+          <i class="fas fa-toggle-on" style="color:dodgerblue;font-size:24px"></i>
+
+          <!-- <button type="button" class="btn btn-light">Suspender</button> -->
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td><i class="fas fa-star" style="color:gold"></i>  3.5</td>
+
+        <td>Moto</td>
+        <td>9738122</td>
+        <td>232</td>
+        <td>$562000</td>
+
+        <td>$85500</td>
+        <td>
+          <span class="badge badge-secondary">Pendiente</span>
+        </td>
+        <td>
+          <i class="fas fa-toggle-off" style="color:#bbb;font-size:24px"></i>
+          <!-- <button type="button" class="btn btn-light">Suspender</button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+
+<div *ngIf="newRider"
+  style="z-index:999;position:fixed;top:0px;left:0px;height:100%;width:100%;display:flex;align-items:center;justify-content:center;">
+  <div style="position:relative;padding:40px;padding-left:60px;padding-right:60px;width:400px;background:white;box-shadow: 0 0 15px #999;border-radius:4px">
+    <div (click)="newRider = false" style="position:absolute;top:-5px;right:-5px;color:#555">
+      <i class="fas fa-times-circle" style="font-size:25px"></i>
+    </div>
+    <div style="display:flex;align-items:center;font-weight:550">
+      <i class="fas fa-user-circle" style="font-size:30px;color:#bbb;margin-right:10px"></i>
+      Nuevo Rider
+    </div>
+
+    <div style="margin-top:10px;display:flex;align-items:center">
+      <div style="color:#666;margin-right:20px">
+        Vehículo:
+      </div>
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{vehiculo}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item"(click)="vehiculo = 'Bicicleta'">Bicicleta</a>
+          <a class="dropdown-item"(click)="vehiculo = 'Moto'">Moto</a>
+          <a class="dropdown-item"(click)="vehiculo = 'Camioneta'">Camioneta</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
+      <input type="password" placeholder="Nombre" [(ngModel)]="password" />
+    </div>
+   
+    <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
+      <input type="password" placeholder="Email" [(ngModel)]="password" />
+    </div>   
+    <div style="margin-top:20px;padding:4px;border-radius:4px;border:1px solid #eee;display:flex;align-items:center">
+      <div style="background:#eee;color:#555;padding:3px">
+        +56 9
+      </div>
+      <input type="text" placeholder="Teléfono" [(ngModel)]="telefono" />
+    </div>
+    <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
+      <input type="password" placeholder="Contraseña" [(ngModel)]="password" />
+    </div>
+    <div style="margin-top:20px;display:flex;align-items:center;justify-content:center">
+      <button (click)="crearNuevoRider()"class="btn btn-primary">Crear cuenta</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="showToastSuccess" style="z-index:999;position:fixed;top:10px;right:10px">
+    <div style="background:#51A351;padding:15px;box-shadow: 0 0 15px #999;border-radius:3px;padding-right:60px;">
+      <div style="display:flex;align-items:center">
+        <i class="fas fa-check" style="font-size:23px;color:white"></i>
+        <div style="color:white;margin-left:15px">
+          Cuenta creada con exito
+        </div>
+      </div>
+    </div>
+  </div>

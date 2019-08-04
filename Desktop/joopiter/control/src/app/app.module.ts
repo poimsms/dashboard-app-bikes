@@ -1,0 +1,55 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyAmlXBSsNgsocMZ15dN8bc1D3ZD0gMAetQ",
+  authDomain: "mapa-334c3.firebaseapp.com",
+  databaseURL: "https://mapa-334c3.firebaseio.com",
+  projectId: "mapa-334c3",
+  storageBucket: "",
+  messagingSenderId: "905180881415",
+  appId: "1:905180881415:web:3d4928246302074a"
+};
+
+
+import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { EmpresasComponent } from './pages/empresas/empresas.component';
+import { CrearComponent } from './pages/crear/crear.component';
+import { OperariosComponent } from './pages/operarios/operarios.component';
+import { HeaderComponent } from './pages/header/header.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    EmpresasComponent,
+    CrearComponent,
+    OperariosComponent,
+    HeaderComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDrc_AM9eMidi_yXt0h7q-orH0vt9D13vk'
+    })
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

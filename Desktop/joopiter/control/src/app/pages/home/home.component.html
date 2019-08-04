@@ -1,0 +1,24 @@
+<div style="padding:0px;background:white;border-radius:6px;box-shadow:0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03)">
+
+  <!-- <div (click)="crearAdmin()" style="font-size:22px">
+    Hoola
+  </div> -->
+  <!-- [iconUrl]="rider.icon" -->
+
+  <!-- [label]="{color: 'white', text: rider.label}" -->
+
+  <agm-map [zoom]="12" [latitude]="lat" [longitude]="lng" [streetViewControl]="false">
+    <agm-marker *ngFor="let rider of riders" [latitude]="rider.lat" [longitude]="rider.lng">
+      <agm-info-window>
+        <div>
+          {{rider.nombre}}
+        </div>
+        <div>
+          +56 9 {{rider.telefono}}
+        </div>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
+
+
+</div>
