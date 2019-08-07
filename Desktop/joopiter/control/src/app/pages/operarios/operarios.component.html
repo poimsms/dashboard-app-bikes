@@ -7,122 +7,23 @@
 
   <div style="padding:15px;display:flex;">
 
-    <a (click)="showFiltros = true" style="background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
-        <i class="fas fa-filter" style="font-size:20px;color:#bbb"></i>
+    <a (click)="showFiltros = true"
+      style="background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+      <i class="fas fa-filter" style="font-size:20px;color:#bbb"></i>
     </a>
-    <a style="margin-left:20px;background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
-        <i class="fas fa-search" style="font-size:20px;color:#bbb"></i>
+    <a (click)="showBusqueda = true"
+      style="margin-left:20px;background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+      <i class="fas fa-search" style="font-size:20px;color:#bbb"></i>
     </a>
-    <a style="margin-left:20px;background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
-        <i class="fas fa-ellipsis-h" style="font-size:20px;color:#bbb"></i>
+    <a (click)="showCrearRider = true"
+      style="margin-left:20px;background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+      <i class="fas fa-plus" style="font-size:20px;color:#bbb"></i>
     </a>
 
-  </div>
-
-  <div *ngIf="false">
-
-
-  <div style="font-size:20px;color:#333;margin-left:15px">
-    Filtros
-  </div>
-
-  <div style="padding:15px;padding-top:5px;display:flex;align-items:center;justify-content:space-between">
-
-    <div style="display:flex;border:1px solid #eee;padding:5px">
-      <div style="border-right:1px solid #eee;padding:7px;padding-top:0px;padding-bottom:0px">
-        <div style="font-size:14px;margin-bottom:-5px;">
-          Inicio
-        </div>
-        <div>
-          <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
-          <input id="date" type="date" value="2017-06-01" />
-        </div>
-      </div>
-      <div style="padding:7px;padding-top:0px;padding-bottom:0px">
-        <div style="font-size:14px;margin-bottom:-5px;">
-          Término
-        </div>
-        <div>
-          <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
-          <input id="date" type="date" value="2017-06-01" />
-        </div>
-      </div>
-    </div>
-
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-light active">
-        <input type="radio" name="options" id="option1" autocomplete="off" checked> Contrato
-      </label>
-      <label class="btn btn-light">
-        <input type="radio" name="options" id="option2" autocomplete="off"> Prestación de servicio
-      </label>
-      <label class="btn btn-light">
-        <input type="radio" name="options" id="option3" autocomplete="off"> Todo
-      </label>
-    </div> 
-
- 
-    <div></div>
-    <div style="width:15px"></div>
-
-  </div>
-
-  <div style="margin-left:15px;display:flex;align-items:center">
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-light active">
-            <input type="radio" name="options" id="option1" autocomplete="off" checked> Desactivada
-          </label>
-          <label class="btn btn-light">
-            <input type="radio" name="options" id="option2" autocomplete="off"> Activada
-          </label>
-          <label class="btn btn-light">
-            <input type="radio" name="options" id="option3" autocomplete="off"> Todo
-          </label>
-        </div>
-
-        <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary" style="margin-left:40px">
-            Aplicar filtros
-          </button>
-
-  </div>
-
-
-
-
-  <div style="margin-top:20px;font-size:20px;color:#333;margin-left:15px">
-    Búsqueda
-  </div>
-
-  <div style="margin-top:5px;display:flex;align-items:center;padding-left:15px">
-    <div style="border-radius:0px;border:1px solid #eee;display:flex;align-items:center;">
-      <div
-        style="border-radius:0px 0px 0px 0px;width:55px;height:40px;background:#eee;color:#555;padding:3px;display:flex;align-items:center;justify-content:center">
-        +56 9
-      </div>
-      <input type="text" placeholder="Teléfono" [(ngModel)]="telefono_search" />
-    </div>
-    <button type="button" class="btn btn-outline-primary" style="margin-left:70px">
-      Buscar
-    </button>
-  </div>
-
-
-  <div style="margin-top:20px;font-size:20px;color:#333;margin-left:15px">
-    Opciones
-  </div>
-  <div style="margin-left:15px;margin-top:5px">
-    <button (click)="newRider = true" type="button" class="btn btn-outline-primary">
-      <i class="fas fa-plus"></i>
-      Crear Rider
-    </button>
-  </div>
-
-    
   </div>
 
 
   <div style="height:20px;width:10px"></div>
-  
 
 
 
@@ -176,7 +77,7 @@
   style="z-index:999;position:fixed;top:0px;left:0px;height:100%;width:100%;display:flex;align-items:center;justify-content:center;">
   <div
     style="position:relative;padding:40px;padding-left:40px;padding-right:60px;background:white;box-shadow: 0 0 15px #999;border-radius:4px">
-    <div (click)="close_crear_rider()" style="position:absolute;top:-5px;right:-5px;color:#555">
+    <div (click)="close_filtros()" style="position:absolute;top:-5px;right:-5px;color:#555">
       <i class="fas fa-times-circle" style="font-size:25px"></i>
     </div>
     <div style="display:flex;align-items:center;font-weight:550">
@@ -184,40 +85,36 @@
       Filtros
     </div>
 
-
     <div style="margin-top:20px">
-        Periodo
+      Periodo
     </div>
 
-
     <div style="display:flex;border:1px solid #eee;padding:5px">
-        <div style="border-right:1px solid #eee;padding:7px;padding-top:0px;padding-bottom:0px">
-          <div style="font-size:14px;margin-bottom:-5px;">
-            Inicio
-          </div>
-          <div>
-            <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
-            <input id="date" type="date" value="2017-06-01" />
-          </div>
+      <div style="border-right:1px solid #eee;padding:7px;padding-top:0px;padding-bottom:0px">
+        <div style="font-size:14px;margin-bottom:-5px;">
+          Inicio
         </div>
-        <div style="padding:7px;padding-top:0px;padding-bottom:0px">
-          <div style="font-size:14px;margin-bottom:-5px;">
-            Término
-          </div>
-          <div>
-            <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
-            <input id="date" type="date" value="2017-06-01" />
-          </div>
+        <div>
+          <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
+          <input id="date" type="date" value="2017-06-01" />
         </div>
       </div>
+      <div style="padding:7px;padding-top:0px;padding-bottom:0px">
+        <div style="font-size:14px;margin-bottom:-5px;">
+          Término
+        </div>
+        <div>
+          <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
+          <input id="date" type="date" value="2017-06-01" />
+        </div>
+      </div>
+    </div>
 
+    <div style="margin-top:20px">
+      Tipo de relación
+    </div>
 
-
-      <div style="margin-top:20px">
-          Tipo de relación
-  </div>
-
-  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
       <label class="btn btn-light active">
         <input type="radio" name="options" id="option1" autocomplete="off" checked> Contrato
       </label>
@@ -227,36 +124,31 @@
       <label class="btn btn-light">
         <input type="radio" name="options" id="option3" autocomplete="off"> Todo
       </label>
-    </div> 
-
-
+    </div>
 
     <div style="margin-top:20px">
       Cuenta
     </div>
 
-
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-light active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Desactivada
-        </label>
-        <label class="btn btn-light">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Activada
-        </label>
-        <label class="btn btn-light">
-          <input type="radio" name="options" id="option3" autocomplete="off"> Todo
-        </label>
-      </div>
+      <label class="btn btn-light active">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> Desactivada
+      </label>
+      <label class="btn btn-light">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Activada
+      </label>
+      <label class="btn btn-light">
+        <input type="radio" name="options" id="option3" autocomplete="off"> Todo
+      </label>
+    </div>
 
-      <div style="margin-top:30px"></div>
+    <div style="margin-top:30px"></div>
 
-      <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary btn-block">
-          Aplicar filtros
-        </button>
+    <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary btn-block">
+      Aplicar filtros
+    </button>
 
-      </div>
-
-
+  </div>
 </div>
 
 
@@ -265,7 +157,63 @@
 
 
 
-<div *ngIf="newRider"
+<div *ngIf="showBusqueda"
+  style="z-index:999;position:fixed;top:0px;left:0px;height:100%;width:100%;display:flex;align-items:center;justify-content:center;">
+  <div
+    style="position:relative;padding:40px;padding-left:40px;padding-right:60px;background:white;box-shadow: 0 0 15px #999;border-radius:4px">
+    <div (click)="close_busqueda()" style="position:absolute;top:-5px;right:-5px;color:#555">
+      <i class="fas fa-times-circle" style="font-size:25px"></i>
+    </div>
+    <div style="display:flex;align-items:center;font-weight:550">
+      <i class="fas fa-search" style="font-size:30px;color:#bbb;margin-right:10px"></i>
+      Búsqueda
+    </div>
+    <div style="margin-top:20px">
+      Teléfono
+    </div>
+    <div
+      style="margin-top:0px;padding:4px;border-radius:4px;border:1px solid #eee;display:flex;align-items:center;width:250px">
+      <div style="background:#eee;color:#555;padding:3px">
+        +56 9
+      </div>
+      <input type="tel" placeholder="" [(ngModel)]="telefono" />
+    </div>
+    <div style="margin-top:20px">
+      Periodo
+    </div>
+    <div style="display:flex;border:1px solid #eee;padding:5px">
+      <div style="border-right:1px solid #eee;padding:7px;padding-top:0px;padding-bottom:0px">
+        <div style="font-size:14px;margin-bottom:-5px;">
+          Inicio
+        </div>
+        <div>
+          <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
+          <input id="date" type="date" value="2017-06-01" />
+        </div>
+      </div>
+      <div style="padding:7px;padding-top:0px;padding-bottom:0px">
+        <div style="font-size:14px;margin-bottom:-5px;">
+          Término
+        </div>
+        <div>
+          <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
+          <input id="date" type="date" value="2017-06-01" />
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:30px"></div>
+
+    <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary btn-block">
+      Buscar rider
+    </button>
+  </div>
+</div>
+
+
+
+
+
+<div *ngIf="showCrearRider"
   style="z-index:999;position:fixed;top:0px;left:0px;height:100%;width:100%;display:flex;align-items:center;justify-content:center;">
   <div
     style="position:relative;padding:40px;padding-left:60px;padding-right:60px;width:450px;background:white;box-shadow: 0 0 15px #999;border-radius:4px">
@@ -320,13 +268,16 @@
       Las contraseñas deben ser idénticas
     </div>
     <div *ngIf="error_vehiculo" style="margin-top:15px;color:red">
-      Debe seleccionar una vehículo
+      Debe seleccionar un vehículo
     </div>
     <div *ngIf="error_info_incompleta" style="margin-top:15px;color:red">
-      Por favor completar correctamente todos los campos
+      Por favor completar todos los campos
     </div>
-    <div style="margin-top:20px;display:flex;align-items:center;justify-content:center">
-      <button (click)="crearRider()" class="btn btn-primary">Crear cuenta</button>
-    </div>
+
+    <div style="margin-top:20px;"></div>
+
+    <button (click)="crearRider()" type="button" class="btn btn-outline-primary btn-block">
+      Crear cuenta
+    </button>
   </div>
 </div>

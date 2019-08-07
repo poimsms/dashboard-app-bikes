@@ -17,7 +17,6 @@ export class OperariosComponent implements OnInit {
   password_2: string;
   vehiculo = 'Seleccionar';
 
-  newRider = false;
   error_crear_rider = false;
   riders = [];
 
@@ -29,7 +28,7 @@ export class OperariosComponent implements OnInit {
 
   showFiltros = false;
   showBusqueda = false;
-  showOpciones = false;
+  showCrearRider = false;
 
   constructor(
     private _data: DataService,
@@ -104,7 +103,7 @@ export class OperariosComponent implements OnInit {
   }
 
   close_crear_rider() {
-    this.newRider = false;
+    this.showCrearRider = false;
     this.error_crear_rider = false;
     this.telefono = undefined;
     this.nombre = undefined;
@@ -121,5 +120,14 @@ export class OperariosComponent implements OnInit {
     this.error_telefono = false;
     this.error_password = false;
     this.error_vehiculo = false;
+  }
+
+
+  close_busqueda() {
+    this.showBusqueda = false;
+  }
+
+  close_filtros() {
+    this.showFiltros = false;
   }
 }
