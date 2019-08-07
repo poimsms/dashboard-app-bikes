@@ -12,7 +12,7 @@ export class OperariosComponent implements OnInit {
 
   nombre: string;
   email: string;
-  telefono: number;
+  telefono: string;
   password_1: string;
   password_2: string;
   vehiculo = 'Seleccionar';
@@ -20,6 +20,16 @@ export class OperariosComponent implements OnInit {
   newRider = false;
   error_crear_rider = false;
   riders = [];
+
+  error_info_incompleta = false;
+  error_telefono = false;
+  error_password = false;
+  error_vehiculo = false;
+
+
+  showFiltros = false;
+  showBusqueda = false;
+  showOpciones = false;
 
   constructor(
     private _data: DataService,
@@ -54,21 +64,26 @@ export class OperariosComponent implements OnInit {
 
   crearRider() {
 
-    let todo_bien = false;
+    this.resetErros();
 
-    if (this.nombre && this.email && this.telefono && this.password_1) {
-      if (Number(this.telefono)) {
-        if (this.vehiculo != 'Seleccionar') {
-          if (this.password_1 == this.password_2) {
-            todo_bien = true;
-          }
-        }        
-      }
+    if (!(this.nombre && this.email && this.telefono && this.password_1 && this.password_2)) {
+      return this.error_info_incompleta = true;
     }
 
-    if (!todo_bien) {
-      this.error_crear_rider = true;
-      return;
+    if (!Number(this.telefono)) {      
+      return this.error_telefono = true;
+    }
+
+    if (this.telefono.length != 8) {      
+      return this.error_telefono = true;
+    }
+
+    if (this.password_1 != this.password_2) {
+      return this.error_password = true;
+    }
+
+    if (this.vehiculo == 'Seleccionar') {
+      return this.error_vehiculo = true;
     }
 
     const body = {
@@ -97,5 +112,14 @@ export class OperariosComponent implements OnInit {
     this.password_1 = undefined;
     this.password_2 = undefined;
     this.vehiculo = 'Seleccionar';
+
+    this.resetErros();
+  }
+
+  resetErros() {
+    this.error_info_incompleta = false;
+    this.error_telefono = false;
+    this.error_password = false;
+    this.error_vehiculo = false;
   }
 }

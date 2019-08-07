@@ -32,23 +32,21 @@
       </div>
     </div>
 
+    <div  class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-light active">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked> Desactivada
+        </label>
+        <label class="btn btn-light">
+          <input type="radio" name="options" id="option2" autocomplete="off"> Activada
+        </label>
+        <label class="btn btn-light">
+          <input type="radio" name="options" id="option3" autocomplete="off"> Todo
+        </label>
+      </div> 
 
 
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-light active">
-        <input type="radio" name="options" id="option1" autocomplete="off" checked> Contratato
-      </label>
-      <label class="btn btn-light">
-        <input type="radio" name="options" id="option2" autocomplete="off"> Prestación de servicio
-      </label>
-      <label class="btn btn-light">
-        <input type="radio" name="options" id="option3" autocomplete="off"> Todo
-      </label>
-    </div>
-
-
-    <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary">
-      Aplicar
+    <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary" style="margin-left:0px">
+      Aplicar filtros
     </button>
 
     <div style="width:15px"></div>
@@ -67,9 +65,9 @@
         style="border-radius:0px 0px 0px 0px;width:55px;height:40px;background:#eee;color:#555;padding:3px;display:flex;align-items:center;justify-content:center">
         +56 9
       </div>
-      <input type="text" placeholder="Teléfono" [(ngModel)]="telefono" />
+      <input type="text" placeholder="Teléfono" [(ngModel)]="telefono_search" />
     </div>
-    <button type="button" class="btn btn-outline-primary" style="margin-left:70px">
+    <button type="button" class="btn btn-outline-primary" style="margin-left:30px">
       Buscar
     </button>
   </div>
@@ -224,7 +222,7 @@
     </div>
     <div style="display:flex;align-items:center;font-weight:550">
       <i class="fas fa-user-circle" style="font-size:30px;color:#bbb;margin-right:10px"></i>
-      Nueva Empresa
+      Nueva Empresaa
     </div>
     <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
       <input type="text" placeholder="Nombre de la empresa" [(ngModel)]="nombre" />
@@ -241,14 +239,20 @@
       </div>
       <input type="tel" placeholder="Teléfono" [(ngModel)]="telefono" />
     </div>
+    <div *ngIf="error_telefono" style="margin-top:5px;color:red">
+      Deben ser 8 digitos
+    </div>
     <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
-      <input type="password" placeholder="Crear una contraseña" [(ngModel)]="password_1" />
+      <input type="password" placeholder="Crea una contraseña" [(ngModel)]="password_1" />
     </div>
     <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
       <input type="password" placeholder="Confirmar contraseña" [(ngModel)]="password_2" />
     </div>
-    <div *ngIf="error_crear_empresa" style="margin-top:15px;color:red">
-      Por favor completar correctamente todos los campos
+    <div *ngIf="error_password" style="margin-top:5px;color:red">
+      Las contraseñas deben ser idénticas
+    </div>
+    <div *ngIf="error_info_incompleta" style="margin-top:15px;color:red">
+      Por favor completar todos los campos
     </div>
     <div style="margin-top:20px;display:flex;align-items:center;justify-content:center">
       <button (click)="crearEmpresa()" class="btn btn-primary">Crear cuenta</button>

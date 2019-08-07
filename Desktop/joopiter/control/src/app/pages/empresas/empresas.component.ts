@@ -13,12 +13,16 @@ export class EmpresasComponent implements OnInit {
   nombre: string;
   direccion: string;
   email: string;
-  telefono: number;
+  telefono: string;
+  telefono_search: string;
   password_1: string;
   password_2: string;
 
   newEmpresa = false;
-  error_crear_empresa = false;
+
+  error_info_incompleta = false;
+  error_telefono = false;
+  error_password = false;
 
   constructor(
     private _control: ControlService,
@@ -34,20 +38,24 @@ export class EmpresasComponent implements OnInit {
 
 
   crearEmpresa() {
-    let todo_bien = false;
 
-    if (this.nombre && this.direccion && this.email && this.telefono && this.password_1) {
-      if (Number(this.telefono)) {
-        if (this.password_1 == this.password_2) {
-          todo_bien = true;
-        }
-      }
+    this.resetErros();
+
+    if (!(this.nombre && this.direccion && this.email && this.telefono && this.password_1 && this.password_2)) {
+      return this.error_info_incompleta = true;
     }
 
-    if (!todo_bien) {
-      this.error_crear_empresa = true;
-      return;
+    if (!Number(this.telefono)) {      
+      return this.error_telefono = true;
     }
+
+    if (this.telefono.length != 8) {      
+      return this.error_telefono = true;
+    }
+
+    if (this.password_1 != this.password_2) {
+      return this.error_password = true;
+    }  
     
     const body = {
       nombre: this.nombre,
@@ -69,13 +77,20 @@ export class EmpresasComponent implements OnInit {
 
   close_crear_empresa() {
     this.newEmpresa = false;
-    this.error_crear_empresa = false;
     this.telefono = undefined;
     this.nombre = undefined;
     this.direccion = undefined;
     this.email = undefined;
     this.password_1 = undefined;
     this.password_2 = undefined;
+
+    this.resetErros();
+  }
+
+  resetErros() {
+    this.error_info_incompleta = false;
+    this.error_telefono = false;
+    this.error_password = false;
   }
 
 

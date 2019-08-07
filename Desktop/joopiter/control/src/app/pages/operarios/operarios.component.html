@@ -4,35 +4,125 @@
     Riders
   </div>
 
-  <div style="padding:15px;display:flex;align-items:center;justify-content:space-between">
-    <div class="nav-item dropdown" style="color:#555;display:flex;align-items:center">
-      <div class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"
-        style="padding:5px;padding-left:10px;padding-right:10px;border:1px solid #eee;border-radius:6px;margin-left:10px">
-        Agosto
+
+  <div style="padding:15px;display:flex;">
+
+    <a (click)="showFiltros = true" style="background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+        <i class="fas fa-filter" style="font-size:20px;color:#bbb"></i>
+    </a>
+    <a style="margin-left:20px;background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+        <i class="fas fa-search" style="font-size:20px;color:#bbb"></i>
+    </a>
+    <a style="margin-left:20px;background:#eee;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center">
+        <i class="fas fa-ellipsis-h" style="font-size:20px;color:#bbb"></i>
+    </a>
+
+  </div>
+
+  <div *ngIf="false">
+
+
+  <div style="font-size:20px;color:#333;margin-left:15px">
+    Filtros
+  </div>
+
+  <div style="padding:15px;padding-top:5px;display:flex;align-items:center;justify-content:space-between">
+
+    <div style="display:flex;border:1px solid #eee;padding:5px">
+      <div style="border-right:1px solid #eee;padding:7px;padding-top:0px;padding-bottom:0px">
+        <div style="font-size:14px;margin-bottom:-5px;">
+          Inicio
+        </div>
+        <div>
+          <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
+          <input id="date" type="date" value="2017-06-01" />
+        </div>
       </div>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item">Agosto</a>
-        <a class="dropdown-item">Septiembre</a>
+      <div style="padding:7px;padding-top:0px;padding-bottom:0px">
+        <div style="font-size:14px;margin-bottom:-5px;">
+          Término
+        </div>
+        <div>
+          <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
+          <input id="date" type="date" value="2017-06-01" />
+        </div>
       </div>
     </div>
 
-    <div style="display:flex;">
-      <button (click)="newRider = true" type="button" class="btn btn-outline-primary" style="margin-right:20px">
-        <i class="fas fa-coins"></i>
-        Pagar deuda
-      </button>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-light active">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> Contrato
+      </label>
+      <label class="btn btn-light">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Prestación de servicio
+      </label>
+      <label class="btn btn-light">
+        <input type="radio" name="options" id="option3" autocomplete="off"> Todo
+      </label>
+    </div> 
 
-      <button (click)="newRider = true" type="button" class="btn btn-outline-primary">
-        <i class="fas fa-plus"></i>
-        Crear Rider
-      </button>
-    </div>
+ 
+    <div></div>
+    <div style="width:15px"></div>
 
+  </div>
+
+  <div style="margin-left:15px;display:flex;align-items:center">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-light active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> Desactivada
+          </label>
+          <label class="btn btn-light">
+            <input type="radio" name="options" id="option2" autocomplete="off"> Activada
+          </label>
+          <label class="btn btn-light">
+            <input type="radio" name="options" id="option3" autocomplete="off"> Todo
+          </label>
+        </div>
+
+        <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary" style="margin-left:40px">
+            Aplicar filtros
+          </button>
 
   </div>
 
 
+
+
+  <div style="margin-top:20px;font-size:20px;color:#333;margin-left:15px">
+    Búsqueda
+  </div>
+
+  <div style="margin-top:5px;display:flex;align-items:center;padding-left:15px">
+    <div style="border-radius:0px;border:1px solid #eee;display:flex;align-items:center;">
+      <div
+        style="border-radius:0px 0px 0px 0px;width:55px;height:40px;background:#eee;color:#555;padding:3px;display:flex;align-items:center;justify-content:center">
+        +56 9
+      </div>
+      <input type="text" placeholder="Teléfono" [(ngModel)]="telefono_search" />
+    </div>
+    <button type="button" class="btn btn-outline-primary" style="margin-left:70px">
+      Buscar
+    </button>
+  </div>
+
+
+  <div style="margin-top:20px;font-size:20px;color:#333;margin-left:15px">
+    Opciones
+  </div>
+  <div style="margin-left:15px;margin-top:5px">
+    <button (click)="newRider = true" type="button" class="btn btn-outline-primary">
+      <i class="fas fa-plus"></i>
+      Crear Rider
+    </button>
+  </div>
+
+    
+  </div>
+
+
+  <div style="height:20px;width:10px"></div>
+  
 
 
 
@@ -53,7 +143,8 @@
     <tbody>
       <tr *ngFor="let rider of riders; let i = index">
         <th scope="row"> {{i + 1}} </th>
-        <td> {{rider.nombre}} </td>
+        <td> {{rider.nombre}} <h6> <span class="badge badge-secondary">Contrato</span></h6>
+        </td>
         <td><i class="fas fa-star" style="color:gold"></i> {{rider.startsAvg}} </td>
         <td> {{rider.vehiculo}} </td>
         <td> {{rider.telefono}} </td>
@@ -71,6 +162,105 @@
   </table>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+<div *ngIf="showFiltros"
+  style="z-index:999;position:fixed;top:0px;left:0px;height:100%;width:100%;display:flex;align-items:center;justify-content:center;">
+  <div
+    style="position:relative;padding:40px;padding-left:40px;padding-right:60px;background:white;box-shadow: 0 0 15px #999;border-radius:4px">
+    <div (click)="close_crear_rider()" style="position:absolute;top:-5px;right:-5px;color:#555">
+      <i class="fas fa-times-circle" style="font-size:25px"></i>
+    </div>
+    <div style="display:flex;align-items:center;font-weight:550">
+      <i class="fas fa-filter" style="font-size:30px;color:#bbb;margin-right:10px"></i>
+      Filtros
+    </div>
+
+
+    <div style="margin-top:20px">
+        Periodo
+    </div>
+
+
+    <div style="display:flex;border:1px solid #eee;padding:5px">
+        <div style="border-right:1px solid #eee;padding:7px;padding-top:0px;padding-bottom:0px">
+          <div style="font-size:14px;margin-bottom:-5px;">
+            Inicio
+          </div>
+          <div>
+            <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
+            <input id="date" type="date" value="2017-06-01" />
+          </div>
+        </div>
+        <div style="padding:7px;padding-top:0px;padding-bottom:0px">
+          <div style="font-size:14px;margin-bottom:-5px;">
+            Término
+          </div>
+          <div>
+            <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
+            <input id="date" type="date" value="2017-06-01" />
+          </div>
+        </div>
+      </div>
+
+
+
+      <div style="margin-top:20px">
+          Tipo de relación
+  </div>
+
+  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-light active">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> Contrato
+      </label>
+      <label class="btn btn-light">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Prestación de servicio
+      </label>
+      <label class="btn btn-light">
+        <input type="radio" name="options" id="option3" autocomplete="off"> Todo
+      </label>
+    </div> 
+
+
+
+    <div style="margin-top:20px">
+      Cuenta
+    </div>
+
+
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-light active">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked> Desactivada
+        </label>
+        <label class="btn btn-light">
+          <input type="radio" name="options" id="option2" autocomplete="off"> Activada
+        </label>
+        <label class="btn btn-light">
+          <input type="radio" name="options" id="option3" autocomplete="off"> Todo
+        </label>
+      </div>
+
+      <div style="margin-top:30px"></div>
+
+      <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary btn-block">
+          Aplicar filtros
+        </button>
+
+      </div>
+
+
+</div>
+
+
+
 
 
 
@@ -117,13 +307,22 @@
       </div>
       <input type="tel" placeholder="Teléfono" [(ngModel)]="telefono" />
     </div>
+    <div *ngIf="error_telefono" style="margin-top:5px;color:red">
+      Deben ser 8 digitos
+    </div>
     <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
-      <input type="password" placeholder="Crear una contraseña" [(ngModel)]="password_1" />
+      <input type="password" placeholder="Crea una contraseña" [(ngModel)]="password_1" />
     </div>
     <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
       <input type="password" placeholder="Confirmar contraseña" [(ngModel)]="password_2" />
     </div>
-    <div *ngIf="error_crear_rider" style="margin-top:15px;color:red">
+    <div *ngIf="error_password" style="margin-top:5px;color:red">
+      Las contraseñas deben ser idénticas
+    </div>
+    <div *ngIf="error_vehiculo" style="margin-top:15px;color:red">
+      Debe seleccionar una vehículo
+    </div>
+    <div *ngIf="error_info_incompleta" style="margin-top:15px;color:red">
       Por favor completar correctamente todos los campos
     </div>
     <div style="margin-top:20px;display:flex;align-items:center;justify-content:center">

@@ -8,3 +8,8 @@ input {
     width:80%;
     border-radius:5px;
 }
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
