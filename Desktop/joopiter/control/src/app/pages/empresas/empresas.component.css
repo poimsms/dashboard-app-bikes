@@ -9,6 +9,21 @@ input {
     border-radius:5px;
 }
 
+#date {
+  -webkit-appearance: none;
+  outline: none;
+  box-shadow: none !important;
+  width:150px;
+  margin-bottom:-5px;
+  padding:0px;
+  font-size:14px;
+}
+
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
 a {
     text-decoration: none;
     cursor: pointer;

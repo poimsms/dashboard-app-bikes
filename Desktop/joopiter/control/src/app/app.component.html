@@ -1,4 +1,3 @@
-
 <div *ngIf="isAuth" style="z-index:999;position:fixed;top:0px;left:0px;width:15%;height:100%">
 
   <div style="background:white;height:100%;box-shadow:7px 0 60px rgba(0, 0, 0, 0.05)">
@@ -75,18 +74,19 @@
     <i class="fas fa-bars" style="font-size:20px;color:#555"></i>
 
     <div *ngIf="_control.isMapa" style="display:flex;align-items:center">
-      <div style="background:white;border:1px solid #eee;border-radius:5px;padding:0px;padding-left:4px;display:flex;align-items:center;margin-right:10px">
-          <div
+      <div
+        style="background:white;border:1px solid #eee;border-radius:5px;padding:0px;padding-left:4px;display:flex;align-items:center;margin-right:10px">
+        <div
           style="border-radius:4px 0px 0px 4px;width:55px;background:#eee;color:#555;padding:3px;display:flex;align-items:center;justify-content:center">
           +56 9
         </div>
         <input type="text" placeholder="Teléfono" [(ngModel)]="telefono" />
       </div>
 
-      <button type="button" class="btn btn-outline-secondary">
-          <i class="fas fa-location-arrow"></i>
-          Seguir
-        </button>
+      <button (click)="trackRider()" type="button" class="btn btn-outline-secondary">
+        <i class="fas fa-location-arrow"></i>
+        Seguir
+      </button>
     </div>
 
 
@@ -102,16 +102,16 @@
     </div> -->
 
     <div *ngIf="_control.isMapa" class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Activos
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Inactivos
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option3" autocomplete="off"> Todo
-        </label>
-      </div>
+      <label (click)="getRiders('riders-activos')" class="btn btn-secondary active">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> Activos
+      </label>
+      <label (click)="getRiders('riders-inactivos')" class="btn btn-secondary">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Inactivos
+      </label>
+      <label (click)="getRiders('riders-todos')" class="btn btn-secondary">
+        <input type="radio" name="options" id="option3" autocomplete="off"> Todo
+      </label>
+    </div>
 
 
     <div style="border-left:1px solid #eee;padding-left:10px;display:flex;align-items:center">
@@ -146,3 +146,16 @@
 
 
 <app-login *ngIf="!isAuth"></app-login>
+
+
+
+<div *ngIf="riderNotFound" style="z-index:999;position:fixed;top:10px;right:10px">
+    <div style="background:#BD362F;padding:15px;box-shadow: 0 0 15px #999;border-radius:3px;padding-right:40px;">
+      <div style="display:flex;align-items:center">
+        <i class="fas fa-times-circle" style="font-size:23px;color:white"></i>
+        <div style="color:white;margin-left:15px;width:200px;">
+          No encontrado
+        </div>
+      </div>
+    </div>
+  </div>
