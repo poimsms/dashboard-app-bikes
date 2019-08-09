@@ -41,6 +41,10 @@ input {
     height:40px;
 }
 
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
 
 .active {
     color:#4872DA !important;

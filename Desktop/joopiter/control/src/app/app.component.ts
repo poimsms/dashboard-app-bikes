@@ -15,7 +15,8 @@ export class AppComponent {
   telefono: number;
   isAuth = false;
   riderNotFound = false;
-
+  vehiculo = 'Moto';
+  
   constructor(
     public _control: ControlService,
     private _data: DataService,
@@ -29,7 +30,12 @@ export class AppComponent {
   }
 
   getRiders(tipo) {
-    this._data.ridersFirebase(tipo);
+    this._data.queryRidersFirebase(tipo);
+  }
+
+  changeVehicle(vehiculo) {
+    this.vehiculo = vehiculo;
+    this._data.vehiculo = vehiculo;
   }
 
   trackRider() {
@@ -38,11 +44,11 @@ export class AppComponent {
       return;
     }
 
-    this._data.buscarRiderByPhone(this.telefono).then((res: any) => {
+    this._data.getRiderByPhone(this.telefono).then((res: any) => {
 
       if (res.ok) {
         this._data.id = res.rider._id;
-        this._data.ridersFirebase('rastreo');
+        this._data.queryRidersFirebase('rastreo');
       } else {
         // rider no encontrado
         this.riderNotFound = true;

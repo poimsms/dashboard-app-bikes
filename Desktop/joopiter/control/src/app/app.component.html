@@ -16,7 +16,7 @@
     <div style="padding:20px">
 
 
-      <div (click)="openPage('mapa')" style="display:flex;align-items:center;justify-content:space-between">
+      <a (click)="openPage('mapa')" style="display:flex;align-items:center;justify-content:space-between">
         <div style="display:flex;align-items:center">
           <i class="fas fa-map icon-left" [ngClass]="{active: _control.isMapa}"></i>
           <div class="text" [ngClass]="{active: _control.isMapa}">
@@ -24,9 +24,9 @@
           </div>
         </div>
         <div></div>
-      </div>
+      </a>
 
-      <div (click)="openPage('riders')"
+      <a (click)="openPage('riders')"
         style="margin-top:25px;display:flex;align-items:center;justify-content:space-between">
         <div style="display:flex;align-items:center">
           <i class="fas fa-motorcycle icon-left" [ngClass]="{active: _control.isRiders}"></i>
@@ -35,9 +35,9 @@
           </div>
         </div>
         <div></div>
-      </div>
+      </a>
 
-      <div (click)="openPage('empresas')"
+      <a (click)="openPage('empresas')"
         style="margin-top:25px;display:flex;align-items:center;justify-content:space-between">
         <div style="display:flex;align-items:center">
           <i class="fas fa-building icon-left" [ngClass]="{active: _control.isEmpresas}"></i>
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div></div>
-      </div>
+      </a>
 
       <hr style="border-top:1px solid rgba(255,255,255,.15)">
 
@@ -68,10 +68,22 @@
   <div
     style="padding:15px;padding-left:18%;box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);width:100%;background:#FAFBFC;height:60px;display:flex;align-items:center;justify-content:space-between">
 
-    <!-- <div *ngIf="!_control.isMapa">
-    </div> -->
-
     <i class="fas fa-bars" style="font-size:20px;color:#555"></i>
+
+    <div *ngIf="_control.isMapa" class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-filter" style="font-size:20px;color:#777"></i>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" (click)="changeVehicle('Moto')"
+          [ngStyle]="{'color': vehiculo == 'Moto' ? 'dodgerblue' : 'gray'}">Moto</a>
+        <a class="dropdown-item" (click)="changeVehicle('Bicicleta')"
+          [ngStyle]="{'color': vehiculo == 'Bicicleta' ? 'dodgerblue' : 'gray'}">Bicicleta</a>
+        <a class="dropdown-item" (click)="changeVehicle('Todo')"
+          [ngStyle]="{'color': vehiculo == 'Todo' ? 'dodgerblue' : 'gray'}">Todo</a>
+      </div>
+    </div>
 
     <div *ngIf="_control.isMapa" style="display:flex;align-items:center">
       <div
@@ -89,17 +101,6 @@
       </button>
     </div>
 
-
-
-    <!-- <div *ngIf="_control.isMapa"
-      style="background:whitesmoke;padding:3px;padding-left:10px;padding-right:10px;border:1px solid #eee;border-radius:6px">
-      En ruta (23)
-    </div> -->
-
-    <!-- <div *ngIf="_control.isMapa"
-      style="padding:3px;padding-left:10px;padding-right:10px;border:1px solid #eee;border-radius:6px">
-      En total (93)
-    </div> -->
 
     <div *ngIf="_control.isMapa" class="btn-group btn-group-toggle" data-toggle="buttons">
       <label (click)="getRiders('riders-activos')" class="btn btn-secondary active">
@@ -146,16 +147,3 @@
 
 
 <app-login *ngIf="!isAuth"></app-login>
-
-
-
-<div *ngIf="riderNotFound" style="z-index:999;position:fixed;top:10px;right:10px">
-    <div style="background:#BD362F;padding:15px;box-shadow: 0 0 15px #999;border-radius:3px;padding-right:40px;">
-      <div style="display:flex;align-items:center">
-        <i class="fas fa-times-circle" style="font-size:23px;color:white"></i>
-        <div style="color:white;margin-left:15px;width:200px;">
-          No encontrado
-        </div>
-      </div>
-    </div>
-  </div>

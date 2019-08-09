@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
+
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -53,7 +55,8 @@ import { HeaderComponent } from './pages/header/header.component';
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDrc_AM9eMidi_yXt0h7q-orH0vt9D13vk'
-    })
+    }),
+    AgmDirectionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

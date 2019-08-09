@@ -19,6 +19,8 @@ export class DataService {
 
   id: string;
 
+  vehiculo: string;
+
 
   constructor(
     private http: HttpClient,
@@ -28,32 +30,55 @@ export class DataService {
     this.apiURL = this._config.apiURL;
 
     this.riders$ = this.rider_query$.pipe(
-      switchMap(tipo =>  {
+      switchMap(tipo => {
 
-        if (tipo == 'riders-inactivos') {
-          return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo')).valueChanges()
-        }
+        if (this.vehiculo == 'todo') {
 
-        if (tipo == 'riders-activos') {
-          return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo')).valueChanges()
-        }
+          if (tipo == 'riders-inactivos') {
+            return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('isActive', '==', true)).valueChanges()
+          }
 
-        if (tipo == 'riders-todos') {
-          return this.db.collection('riders', ref => ref.where('isActive', '==', true)).valueChanges()
+          if (tipo == 'riders-activos') {
+            return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('isActive', '==', true)).valueChanges()
+          }
+
+          if (tipo == 'riders-todos') {
+            return this.db.collection('riders', ref => ref.where('isActive', '==', true)).valueChanges()
+          }
+
+        } else {
+
+          if (tipo == 'riders-inactivos') {
+            return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('vehiculo', '==', this.vehiculo).where('isActive', '==', true)).valueChanges()
+          }
+
+          if (tipo == 'riders-activos') {
+            return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('vehiculo', '==', this.vehiculo).where('isActive', '==', true)).valueChanges()
+          }
+
+          if (tipo == 'riders-todos') {
+            return this.db.collection('riders', ref => ref.where('vehiculo', '==', this.vehiculo).where('isActive', '==', true)).valueChanges()
+          }
+
         }
 
         if (tipo == 'rastreo') {
           return this.db.collection('riders', ref => ref.where('rider', '==', this.id)).valueChanges()
         }
+
       })
     );
-    
+
   }
- 
+
+
+  // ---------------------------
+  //        RIDERS
+  // ---------------------------
 
   crearRider(body) {
     return new Promise((resolve, reject) => {
-      const url = `${this.apiURL}/usuarios/rider-crear-cuenta-con-admin`;
+      const url = `${this.apiURL}/dashboard/riders-create-account`;
       this.http.post(url, body).toPromise().then((rider: any) => {
         this.crearRiderFirebase(rider);
         this.crearPedidoFirebase(rider._id);
@@ -86,30 +111,45 @@ export class DataService {
     this.db.collection("pedidos_riders").doc(id).set(data);
   }
 
-  ridersFirebase(query) {
+  updateRiderFirebase(id, data) {
+    this.db.doc('riders/' + id).update(data);
+  }
+
+  getRiderByPhone(telefono) {
+    const url = `${this.apiURL}/dashboard/riders-get-one-by-phone?telefono=${telefono}`;
+    return this.http.get(url).toPromise();
+  }
+
+  findRiderByPhone_using_options(telefono, options) {
+    const url = `${this.apiURL}/dashboard/riders-get-one-by-phone-using-options?telefono=${telefono}`;
+    return this.http.post(url, options).toPromise();
+  }
+
+  findRiders_using_options(options) {
+    const url = `${this.apiURL}/dashboard/riders-get-all-using-options`;
+    return this.http.post(url, options).toPromise();
+  }
+
+  queryRidersFirebase(query) {
     this.rider_query$.next(query);
   }
-  
+
   riderToggleAccount(body) {
-    const url = `${this.apiURL}/riders/riders-activation`;
+    const url = `${this.apiURL}/dashboard/riders-activation`;
     return this.http.put(url, body).toPromise();
   }
 
-  ridersData() {
-    const url = `${this.apiURL}/riders/riders-get-all`;
-    return this.http.get(url).toPromise();
-  }
+
+
+  // ---------------------------
+  //        EMPRESA
+  // ---------------------------
+
 
   crearEmpresa(body) {
-    const url = `${this.apiURL}/usuarios/empresa-crear-cuenta-con-admin`;
+    const url = `${this.apiURL}/dashboard/empresa-create-account`;
     return this.http.post(url, body).toPromise();
   }
-
-  buscarRiderByPhone(telefono) {
-    const url = `${this.apiURL}/riders/riders-get-one-by-phone?telefono=${telefono}`;
-    return this.http.get(url).toPromise();
-  }
-
 
   // ---------------------------
   //        AUXILIAR
@@ -127,8 +167,8 @@ export class DataService {
   }
 
   crearBalance() {
-    const url = `${this.apiURL}/riders/riders-create-balance`;
-    
+    const url = `${this.apiURL}/dashboard/riders-create-balance`;
+
     const body = {
       rider: '5d3f2e0255266a733cd4242b',
       inicio: 'Lunes 05 - Agosto',

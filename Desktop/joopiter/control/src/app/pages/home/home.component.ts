@@ -16,10 +16,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   lat = -33.444600;
   lng = -70.655585;
 
+  origin = { lat: 24.799448, lng: 120.979021 };
+  destination = { lat: 24.799524, lng: 120.975017 };
+
   riders = [];
 
   ridersSubscription$: Subscription;
 
+  iconBicicleta = {
+    url: 'https://res.cloudinary.com/ddon9fx1n/image/upload/v1565228910/tools/pin.png',
+    scaledSize: {
+      width: 40,
+      height: 40
+    }
+  }
+
+  iconMoto = {
+    url: 'https://res.cloudinary.com/ddon9fx1n/image/upload/v1565230426/tools/pin_2.png',
+    scaledSize: {
+      width: 40,
+      height: 40
+    }
+  }
 
   constructor(
     private _data: DataService,

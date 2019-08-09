@@ -23,9 +23,9 @@
   </div>
 
 
-  <div style="height:20px;width:10px"></div>
-
-
+  <div style="width:100%;text-align:right;margin-bottom:5px;padding-right:15px;color:#666">
+    {{periodo.inicio}} al {{periodo.termino}}
+  </div>
 
   <table class="table">
     <thead>
@@ -44,18 +44,19 @@
     <tbody>
       <tr *ngFor="let rider of riders; let i = index">
         <th scope="row"> {{i + 1}} </th>
-        <td> {{rider.nombre}} <h6> <span class="badge badge-secondary">Contrato</span></h6>
+        <td> {{rider.rider.nombre}} <h6 *ngIf="rider.rider.relacion == 'contrato'"> <span
+              class="badge badge-secondary">Contrato</span></h6>
         </td>
-        <td><i class="fas fa-star" style="color:gold"></i> {{rider.startsAvg}} </td>
-        <td> {{rider.vehiculo}} </td>
-        <td> {{rider.telefono}} </td>
-        <td> {{rider.pedidos}} </td>
-        <td> {{rider.ganancia}} </td>
-        <td> {{rider.deuda}} </td>
+        <td><i class="fas fa-star" style="color:gold"></i> {{rider.rider.startsAvg}} </td>
+        <td> {{rider.rider.vehiculo}} </td>
+        <td> {{rider.rider.telefono}} </td>
+        <td> {{rider.balance.pedidosTarjeta + rider.balance.pedidosEfectivo}} </td>
+        <td> ${{rider.balance.ganancia}} </td>
+        <td> ${{rider.balance.deuda}} </td>
         <td>
-          <i (click)="toggleAccount(rider)" *ngIf="rider.isActive" class="fas fa-toggle-off"
+          <i (click)="toggleAccount(rider.rider)" *ngIf="!rider.rider.isActive" class="fas fa-toggle-off"
             style="color:#bbb;font-size:24px"></i>
-          <i (click)="toggleAccount(rider)" *ngIf="!rider.isActive" class="fas fa-toggle-on"
+          <i (click)="toggleAccount(rider.rider)" *ngIf="rider.rider.isActive" class="fas fa-toggle-on"
             style="color:dodgerblue;font-size:24px"></i>
         </td>
       </tr>
@@ -96,7 +97,7 @@
         </div>
         <div>
           <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
-          <input id="date" type="date" value="2017-06-01" />
+          <input id="date" type="date" [(ngModel)]="filterOptions.inicio" />
         </div>
       </div>
       <div style="padding:7px;padding-top:0px;padding-bottom:0px">
@@ -105,7 +106,7 @@
         </div>
         <div>
           <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
-          <input id="date" type="date" value="2017-06-01" />
+          <input id="date" type="date" [(ngModel)]="filterOptions.termino" />
         </div>
       </div>
     </div>
@@ -115,13 +116,13 @@
     </div>
 
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-light active">
+      <label (click)="filterOptions.relacion = 'contrato'" class="btn btn-light">
         <input type="radio" name="options" id="option1" autocomplete="off" checked> Contrato
       </label>
-      <label class="btn btn-light">
+      <label (click)="filterOptions.relacion = 'servicio'" class="btn btn-light">
         <input type="radio" name="options" id="option2" autocomplete="off"> Prestación de servicio
       </label>
-      <label class="btn btn-light">
+      <label (click)="filterOptions.relacion = 'todo'" class="btn btn-light active">
         <input type="radio" name="options" id="option3" autocomplete="off"> Todo
       </label>
     </div>
@@ -131,20 +132,20 @@
     </div>
 
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-light active">
+      <label (click)="filterOptions.cuenta = 'desactivada'" class="btn btn-light" [ngClass]="{'active': filterOptions.cuenta == 'desactivada'}">
         <input type="radio" name="options" id="option1" autocomplete="off" checked> Desactivada
       </label>
-      <label class="btn btn-light">
+      <label (click)="filterOptions.cuenta = 'activada'" class="btn btn-light" [ngClass]="{'active': filterOptions.cuenta == 'activada'}">
         <input type="radio" name="options" id="option2" autocomplete="off"> Activada
       </label>
-      <label class="btn btn-light">
+      <label (click)="filterOptions.cuenta = 'todo'" class="btn btn-light" [ngClass]="{'active': filterOptions.cuenta == 'todo'}">
         <input type="radio" name="options" id="option3" autocomplete="off"> Todo
       </label>
     </div>
 
     <div style="margin-top:30px"></div>
 
-    <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary btn-block">
+    <button (click)="filtrar()" type="button" class="btn btn-outline-primary btn-block">
       Aplicar filtros
     </button>
 
@@ -176,7 +177,7 @@
       <div style="background:#eee;color:#555;padding:3px">
         +56 9
       </div>
-      <input type="tel" placeholder="" [(ngModel)]="telefono" />
+      <input type="tel" placeholder="" [(ngModel)]="telefono_search" />
     </div>
     <div style="margin-top:20px">
       Periodo
@@ -188,7 +189,7 @@
         </div>
         <div>
           <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
-          <input id="date" type="date" value="2017-06-01" />
+          <input id="date" type="date" [(ngModel)]="phoneOptions.inicio" />
         </div>
       </div>
       <div style="padding:7px;padding-top:0px;padding-bottom:0px">
@@ -197,13 +198,13 @@
         </div>
         <div>
           <i class="far fa-calendar" style="color:#bbb;margin-right:5px"></i>
-          <input id="date" type="date" value="2017-06-01" />
+          <input id="date" type="date" [(ngModel)]="phoneOptions.termino" />
         </div>
       </div>
     </div>
     <div style="margin-top:30px"></div>
 
-    <button (click)="newEmpresa = true" type="button" class="btn btn-outline-primary btn-block">
+    <button (click)="buscar()" type="button" class="btn btn-outline-primary btn-block">
       Buscar rider
     </button>
   </div>
@@ -214,9 +215,9 @@
 
 
 <div *ngIf="showCrearRider"
-  style="z-index:999;position:fixed;top:0px;left:0px;height:100%;width:100%;display:flex;align-items:center;justify-content:center;">
+  style="overflow-y:scroll;z-index:999;position:fixed;top:0px;left:0px;height:100%;width:100%;display:flex;align-items:flex-start;justify-content:center;">
   <div
-    style="position:relative;padding:40px;padding-left:60px;padding-right:60px;width:450px;background:white;box-shadow: 0 0 15px #999;border-radius:4px">
+    style="margin-top:25px;margin-bottom:30px;position:relative;padding:40px;padding-left:60px;padding-right:60px;width:500px;background:white;box-shadow: 0 0 15px #999;border-radius:4px;">
     <div (click)="close_crear_rider()" style="position:absolute;top:-5px;right:-5px;color:#555">
       <i class="fas fa-times-circle" style="font-size:25px"></i>
     </div>
@@ -225,7 +226,19 @@
       Nuevo Rider
     </div>
 
-    <div style="margin-top:10px;display:flex;align-items:center">
+    <div style="margin-top:20px;color:#666">
+      Agregar imagen:
+    </div>
+
+    <div style="margin-top:5px;width:100%;display:flex;justify-content:center">
+      <div
+        style="position:relative;width:80px;height:80px;border:1px solid #eee;display:flex;align-items:center;justify-content:center">
+        <i class="far fa-images" style="font-size:30px;color:#bbb"></i>
+        <i class="fas fa-plus-circle" style="position:absolute;bottom:-10px;right:25px;color:#999;font-size:24px"></i>
+      </div>
+    </div>
+
+    <div style="margin-top:25px;display:flex;align-items:center">
       <div style="color:#666;margin-right:20px">
         Vehículo:
       </div>
@@ -241,6 +254,23 @@
         </div>
       </div>
     </div>
+
+    <div style="margin-top:10px;display:flex;align-items:center">
+      <div style="color:#666;margin-right:20px">
+        Relación:
+      </div>
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{relacion}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" (click)="relacion = 'Contrato'">Contrato</a>
+          <a class="dropdown-item" (click)="relacion = 'Prestación de servicios'">Prestación de servicios</a>
+        </div>
+      </div>
+    </div>
+
 
     <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
       <input type="text" placeholder="Nombre" [(ngModel)]="nombre" />
@@ -259,7 +289,7 @@
       Deben ser 8 digitos
     </div>
     <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
-      <input type="password" placeholder="Crea una contraseña" [(ngModel)]="password_1" />
+      <input type="password" placeholder="Crear una contraseña" [(ngModel)]="password_1" />
     </div>
     <div style="border-radius:4px;margin-top:20px;padding:4px;border:1px solid #eee">
       <input type="password" placeholder="Confirmar contraseña" [(ngModel)]="password_2" />
