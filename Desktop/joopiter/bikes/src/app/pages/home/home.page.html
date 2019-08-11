@@ -1,0 +1,145 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Rider</ion-title>
+    <ion-buttons slot="end">
+      <ion-button mode="ios">
+        <!-- <div style="color:limegreen;font-size:16px">
+          Estás activo
+        </div> -->
+        <div style="color:limegreen;font-size:16px">
+          Disponible
+        </div>
+        <!-- <div style="color:gold">
+              En ruta
+          </div> -->
+        <!-- <div>
+          No disponible
+        </div> -->
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="nuevoPedido">
+
+    <ion-item (click)="openMapModal()" detail>
+      <ion-icon slot="start" name="map"></ion-icon>
+      <ion-label style="color:dodgerblue">
+        Ver mapa
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon slot="start" name="card"></ion-icon>
+      <ion-label>
+        Método de pago
+      </ion-label>
+      <div slot="end">
+        Tarjeta
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon slot="start" name="bicycle"></ion-icon>
+      <ion-label>
+        Distancia
+      </ion-label>
+      <div slot="end">
+        2.4 km
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <div style="margin-top:30px;margin-bottom:30px">
+        <div style="color:#666;font-weight:600;display:flex;align-items:center">
+          <ion-icon name="pin" style="color:#bbb;font-size:22px;margin-right:10px"></ion-icon>
+          Punto de retiro
+        </div>
+        <div style="margin-left:30px;margin-top:10px;color:#555">
+          <div>
+            {{pedido?.origen.direccion}}
+          </div>
+          <div *ngIf="pedido?.origen.puerta">
+            {{pedido?.origen.puerta}}
+          </div>
+        </div>
+        <div style="margin-top:25px;color:#666;font-weight:600;display:flex;align-items:center">
+          <ion-icon name="pin" style="color:#bbb;font-size:22px;margin-right:10px"></ion-icon>
+          Punto de entrega
+        </div>
+        <div style="margin-left:30px;margin-top:10px;color:#555">
+          <div>
+            {{pedido?.destino.direccion}}
+          </div>
+          <div *ngIf="pedido?.destino.puerta">
+            {{pedido?.origen.puerta}}
+          </div>
+        </div>
+      </div>
+    </ion-item>
+
+
+    <ion-card>
+      <ion-card-content>
+        <div style="color:#555;display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center">
+            <div style="width:55;height:55px">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ18i8yTiuPKfK9CtP4nNyzQdTNyy6UTMd9XngmLx77n2OqtJH-g"
+                style="height:55px;width:55px;border-radius:50%;object-fit:cover">
+            </div>
+            <div style="margin-left:10px;font-size:16px">
+              <div style="color:#999">
+                Cliente:
+              </div>
+              <div style="color:#444">
+                {{cliente?.nombre}}
+              </div>
+            </div>
+          </div>
+          <ion-icon name="ios-call" style="color:#999;font-size:28px"></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+
+
+  <div padding *ngIf="!nuevoPedido">
+    <div style="padding-top:50px;">
+      <div style="width:100%;display:flex;justify-content:center">
+        <ion-icon name="timer" style="font-size:60px;color:#bbb"></ion-icon>
+      </div>
+      <div style="margin-top:20px;font-size:24px;color:#666">
+        Aún no hay pedidos nuevos..
+      </div>
+    </div>
+  </div>
+
+
+
+</ion-content>
+
+<ion-footer *ngIf="nuevoPedido" style="background:white">
+  <!-- <div padding>
+        <ion-button expand="block" color="secondary">
+          Aceptar pedido
+        </ion-button>
+    </div> -->
+  <div padding>
+    <div padding>
+      <ion-button [disabled]="isLoading" (click)="openSignature()" mode="ios" expand="block" color="secondary">
+        <ion-icon slot="start" name="create"></ion-icon>
+        <div style="font-size:20px;font-weight:600">
+          Firma del cliente
+        </div>
+      </ion-button>
+    </div>
+  </div>
+</ion-footer>

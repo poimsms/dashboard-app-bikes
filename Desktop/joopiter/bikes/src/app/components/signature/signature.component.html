@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Firma del cliente</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        Guardar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <signature-pad [options]="signaturePadOptions">
+  </signature-pad>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="drawClear()" color="secondary">
+      <ion-icon name="trash"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

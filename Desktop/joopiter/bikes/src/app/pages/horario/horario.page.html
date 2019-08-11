@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Define tu horario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" color="primary">Guardar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-segment (ionChange)="segmentChanged($event)" scrollable>
+    <ion-segment-button checked>
+      Lun
+    </ion-segment-button>
+    <ion-segment-button>
+      Mar
+    </ion-segment-button>
+    <ion-segment-button>
+      Mié
+    </ion-segment-button>
+    <ion-segment-button>
+      Jue
+    </ion-segment-button>
+    <ion-segment-button>
+      Vie
+    </ion-segment-button>
+    <ion-segment-button>
+      Sáb
+    </ion-segment-button>
+    <ion-segment-button>
+      Dom
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <div style="height:20px;width:100%"></div>
+
+  <div *ngFor="let dia of dias; let i = index">
+
+    <div *ngIf="dia.isActive">
+
+      <ion-item *ngFor="let hora of dia.horas; let j = index" (click)="activarHora(i, j)"
+        [ngClass]="{'active': hora.isActive}">
+        <ion-label>
+          {{hora.hora}}
+        </ion-label>
+      </ion-item>
+
+    </div>
+
+  </div>
+
+
+</ion-content>

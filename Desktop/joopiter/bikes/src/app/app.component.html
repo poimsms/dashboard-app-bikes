@@ -1,0 +1,52 @@
+<ion-app>
+  <ion-router-outlet main></ion-router-outlet>
+
+
+  <ion-menu side="start" menuId="first">
+    <ion-content>
+      <div style="padding:15px">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ18i8yTiuPKfK9CtP4nNyzQdTNyy6UTMd9XngmLx77n2OqtJH-g"
+          style="width:50px;height:50px;border-radius:50%;object-fit:cover">
+        <div style="margin-top:10px;color:#222;font-weight:600">
+          Oscar Garcia
+        </div>
+      </div>
+      <ion-list>
+
+        <ion-item (click)="openPage('home')" lines="none">
+          <ion-icon slot="start" name="home"></ion-icon>
+          Inicio
+        </ion-item>
+
+        <ion-item (click)="openPage('historial')" lines="none">
+          <ion-icon slot="start" name="bicycle"></ion-icon>
+          Historial
+        </ion-item>
+
+        <ion-item (click)="openPage('usuario')" lines="none">
+          <ion-icon slot="start" name="settings"></ion-icon>
+          Configuraciones
+        </ion-item>
+
+        <!-- <ion-item (click)="openPage('horario')" lines="none">
+          <ion-icon slot="start" name="clipboard"></ion-icon>
+          Horario
+        </ion-item> -->
+
+        <!-- <ion-item lines="none">
+          <ion-icon slot="start" name="headset"></ion-icon>
+          Soporte
+        </ion-item> -->
+
+        <ion-item (click)="logout()" lines="none">
+          <ion-icon slot="start" name="log-out"></ion-icon>
+          Cerrar sesión
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+
+</ion-app>

@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <!-- <ion-title>Historial</ion-title> -->
+      <ion-buttons slot="end">
+        <ion-button mode="ios">
+          <!-- <div style="color:limegreen">
+              Estás disponible
+          </div> -->
+          <div style="color:#555">
+              No estás disponible
+          </div>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <!-- <ion-segment (ionChange)="segmentChanged($event)" value="resumen">
+        <ion-segment-button value="resumen">
+          <ion-label>Resumen</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="todo">
+          <ion-label>Todo</ion-label>
+        </ion-segment-button>
+      </ion-segment> -->
+  </ion-header>
+  
+  <ion-content>
+  
+    <div style="height:30px;width:100%"></div>
+  
+    <div padding style="display:flex;align-items:flex-start">
+      <div style="height:60px;width:60px">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ18i8yTiuPKfK9CtP4nNyzQdTNyy6UTMd9XngmLx77n2OqtJH-g"
+          style="height:60px;width:60px;border-radius:50%;object-fit:cover">
+      </div>
+      <div style="margin-left:15px">
+        <div>
+          Oscar Garcia Fuentes
+        </div>
+        <div style="display:flex;align-items:center">
+          <ion-icon name="star" style="color:gold;font-size:22px"></ion-icon>
+          <ion-icon name="star" style="color:gold;font-size:22px"></ion-icon>
+          <ion-icon name="star" style="color:gold;font-size:22px"></ion-icon>
+          <ion-icon name="star" style="color:gold;font-size:22px"></ion-icon>
+          (4.6)
+        </div>
+        <ion-button color="medium" size="small" mode="ios" fill="outline">
+            <ion-icon slot="start" name="settings"></ion-icon>
+          Configuraciones
+        </ion-button>
+  
+      </div>
+    </div>
+  
+  
+  
+  
+    <!-- <div padding style="font-size:14px">
+      ESTE MES
+    </div> -->
+  
+    <ion-item (click)="openPage('ganancias')" detail>
+      <ion-label style="color:#555">Ganancias</ion-label>
+    </ion-item>
+  
+    <ion-item (click)="openPage('deudas')" detail>
+      <ion-label style="color:#555">Deudas</ion-label>
+    </ion-item>
+  
+    <ion-item (click)="openPage('pagar-deudas')" detail>
+      <ion-label style="color:#555">Pago de deudas</ion-label>
+    </ion-item>
+  
+  </ion-content>
