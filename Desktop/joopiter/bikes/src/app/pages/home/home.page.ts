@@ -5,6 +5,8 @@ import { ControlService } from 'src/app/services/control.service';
 import { ModalController } from '@ionic/angular';
 import { SignatureComponent } from 'src/app/components/signature/signature.component';
 import { MapaComponent } from 'src/app/components/mapa/mapa.component';
+import { Subscription, Subject } from 'rxjs';
+import { FireService } from 'src/app/services/fire.service';
 
 @Component({
   selector: 'app-home',
@@ -18,27 +20,68 @@ export class HomePage implements OnInit {
   riderFire: any;
 
   usuario: any;
-  cliente: any;
   token: string;
   isAuth: boolean;
 
-  nuevoPedido = false;
   pedidoCompletado = false;
+  pedidoActivo = false;
+  solicitud = false;
 
+  riderSubscription$: Subscription;
 
   constructor(
     private _data: DataService,
     private _auth: AuthService,
     public _control: ControlService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private _fire: FireService
   ) {
     this.usuario = _auth.usuario;
     this.token = _auth.token;
   }
 
   ngOnInit() {
-    this.getPedido();
+    this._fire.getRider(this.usuario._id).subscribe((rider: any) => {
+
+      if (rider.nuevoPedido) {
+
+        this.pedidoActivo = true;
+
+        this._data.getPedido(this.usuario._id).then(pedido => {
+          this.pedido = pedido;
+        });
+
+      }
+
+      if (rider.solicitud) {
+
+        this.solicitud = true;
+
+      }
+
+    });
   }
+
+  aceptarSolicitud() {
+    const data = {
+      solicitud: false,
+      solicitudAceptada: true,
+      nuevoPedido: true
+    }
+    this._fire.updateRider(this.usuario._id, data);
+    // actualizar mongo
+  }
+
+
+  rechazarSolicitud() {
+    const data = {
+      pagoPendiente: false,
+      solicitud: false,
+      solicitudAceptada: false
+    }
+    this._fire.updateRider(this.usuario._id, data);
+  }
+
 
   async openMapModal() {
     const modal = await this.modalController.create({
@@ -63,61 +106,32 @@ export class HomePage implements OnInit {
 
     if (data.ok) {
 
-      this._data.confirmar_pedido(this.pedido._id, {img64: data.img64})
+      this._data.confirmar_pedido(this.pedido._id, { img64: data.img64 })
         .then(() => {
 
-          this._data.updatePedidoFirebase(this.usuario._id, {
-            nuevoPedido: false
-          });
+          const data = {
+            nuevoPedido: false,
+            cliente: '',
+            actividad: 'disponible'
+          }
 
-          this._data.updateRiderFirebase(this.usuario._id, {
-            actividad: 'inactivo',
-            isPay: false
-          });
+          this._fire.updateRider(this.usuario._id, data);
 
-          this._data.getBalance(this.usuario._id).then((balance: any) => {
+          // crear pago rider mongo
 
-            const newBalance: any = {};
-
-            if (this.pedido.metodoPago == 'Tarjeta') {
-              newBalance.ganancia = this.pedido.precio + balance.ganancia;
-              newBalance.pedidosTarjeta = balance.pedidosTarjeta + 1;
-            } else {
-              newBalance.deuda = this.pedido.precio + balance.deuda;
-              newBalance.pedidosEfectivo = balance.pedidosEfectivo + 1;
-            }
-
-            this._data.updateBalance(balance._id, newBalance);
-          });
 
           this.pedidoCompletado = true;
-          this.nuevoPedido = false;
+          this.pedidoActivo = false;
 
           // solicitar cliente evaluacion
-          // agregar pagina de exito
+          // push pagina de pedido completado con exito
 
           console.log('listooo');
         });
     }
   }
 
-  getPedido() {
-    this._data.getPedidosFirebase(this.usuario._id).subscribe((data: any) => {
-      if (data[0].nuevoPedido) {
-        this._data.getPedido(data[0].pedido).then((data: any) => {
-          if (data.tipo == 'empresa') {
-            this.cliente = data.empresa;
-          } else {
-            this.cliente = data.usuario;
-          }
-          this.pedido = data.pedido;
-          this.nuevoPedido = true;
-        });
-      } else {
-        this.nuevoPedido = false;
-      }
-    });
-  }
+
 
 
 

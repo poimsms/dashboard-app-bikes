@@ -10,7 +10,6 @@ const routes: Routes = [
   { path: 'historial/:tipo', loadChildren: './pages/historial/historial.module#HistorialPageModule' },
   { path: 'horario', loadChildren: './pages/horario/horario.module#HorarioPageModule' },
   { path: 'historial-one', loadChildren: './pages/historial-one/historial-one.module#HistorialOnePageModule' },
-  { path: 'mapa', loadChildren: './pages/mapa/mapa.module#MapaPageModule' },
 ];
 
 @NgModule({
