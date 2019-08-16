@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   pedido: any;
   pedidoFire: any;
   riderFire: any;
+  cliente: any;
 
   usuario: any;
   token: string;
@@ -47,8 +48,9 @@ export class HomePage implements OnInit {
 
         this.pedidoActivo = true;
 
-        this._data.getPedido(this.usuario._id).then(pedido => {
-          this.pedido = pedido;
+        this._data.getPedido(this.usuario._id).then((data: any) => {
+          this.pedido = data.pedido;
+          this.cliente = data.cliente;        
         });
 
       }
@@ -83,7 +85,7 @@ export class HomePage implements OnInit {
   }
 
 
-  async openMapModal() {
+  async openMapaModal() {
     const modal = await this.modalController.create({
       component: MapaComponent,
       componentProps: {
@@ -95,7 +97,7 @@ export class HomePage implements OnInit {
     await modal.present();
   }
 
-  async openSignature() {
+  async openSignatureModal() {
     const modal = await this.modalController.create({
       component: SignatureComponent
     });
@@ -117,16 +119,19 @@ export class HomePage implements OnInit {
 
           this._fire.updateRider(this.usuario._id, data);
 
-          // crear pago rider mongo
-
-
           this.pedidoCompletado = true;
+
           this.pedidoActivo = false;
 
-          // solicitar cliente evaluacion
-          // push pagina de pedido completado con exito
+          const body: any = {
+            rider: this.usuario._id,
+            cliente: this.cliente._id,
+            tipo: this.cliente.tipo,            
+          }
 
-          console.log('listooo');
+          this._data.createRating(body);
+
+          // push pagina de pedido completado con exito
         });
     }
   }

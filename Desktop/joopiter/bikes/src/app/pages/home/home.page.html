@@ -27,7 +27,7 @@
 
   <div *ngIf="nuevoPedido">
 
-    <ion-item (click)="openMapModal()" detail>
+    <ion-item (click)="openMapaModal()" detail>
       <ion-icon slot="start" name="map"></ion-icon>
       <ion-label style="color:dodgerblue">
         Ver mapa
@@ -134,7 +134,7 @@
     </div> -->
   <div padding>
     <div padding>
-      <ion-button [disabled]="isLoading" (click)="openSignature()" mode="ios" expand="block" color="secondary">
+      <ion-button [disabled]="isLoading" (click)="openSignatureModal()" mode="ios" expand="block" color="secondary">
         <ion-icon slot="start" name="create"></ion-icon>
         <div style="font-size:20px;font-weight:600">
           Firma del cliente

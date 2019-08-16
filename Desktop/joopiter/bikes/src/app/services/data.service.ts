@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConfigService } from './config.service';
-import { AngularFirestore } from '@angular/fire/firestore';
-
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +11,11 @@ export class DataService {
 
   constructor(
     public http: HttpClient,
-    private _config: ConfigService,
-    private db: AngularFirestore
+    private _config: ConfigService
   ) {
+
     this.apiURL = this._config.apiURL;
+
   }
 
   getPedido(id) {
@@ -44,16 +43,8 @@ export class DataService {
     return this.http.get(url).toPromise();
   }
 
-  getPedidosFirebase(id) {
-    return this.db.collection('pedidos_riders', ref =>
-      ref.where('rider', '==', id)).valueChanges();
-  }
-
-  updateRiderFirebase(id, newData) {
-    this.db.doc('riders/' + id).update(newData);
-  }
-
-  updatePedidoFirebase(id, newData) {
-    this.db.doc('pedidos_riders/' + id).update(newData);
+  createRating(body) {
+    const url = `${this.apiURL}/riders/rating-create`;
+    return this.http.post(url, body).toPromise();
   }
 }
