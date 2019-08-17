@@ -31,8 +31,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { EmpresasComponent } from './pages/empresas/empresas.component';
 import { CrearComponent } from './pages/crear/crear.component';
-import { OperariosComponent } from './pages/operarios/operarios.component';
 import { HeaderComponent } from './pages/header/header.component';
+import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { RidersComponent } from './pages/riders/riders.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,10 @@ import { HeaderComponent } from './pages/header/header.component';
     LoginComponent,
     EmpresasComponent,
     CrearComponent,
-    OperariosComponent,
-    HeaderComponent
+    HeaderComponent,
+    PedidosComponent,
+    UsuarioComponent,
+    RidersComponent
   ],
   imports: [
     BrowserModule,

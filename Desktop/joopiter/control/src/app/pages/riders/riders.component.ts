@@ -4,11 +4,11 @@ import { ControlService } from 'src/app/services/control.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-operarios',
-  templateUrl: './operarios.component.html',
-  styleUrls: ['./operarios.component.css']
+  selector: 'app-riders',
+  templateUrl: './riders.component.html',
+  styleUrls: ['./riders.component.css']
 })
-export class OperariosComponent implements OnInit {
+export class RidersComponent implements OnInit {
 
   nombre: string;
   email: string;
@@ -201,3 +201,4 @@ export class OperariosComponent implements OnInit {
       });
   }
 }
+

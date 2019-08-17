@@ -11,6 +11,7 @@ export class ControlService {
   isMapaTodo = false;
   isRiders = false;
   isEmpresas = false;
+  isPedidos = false;
 
   constructor(private router: Router) { }
 
@@ -19,16 +20,25 @@ export class ControlService {
       this.isMapa = true;
       this.isRiders = false;
       this.isEmpresas = false;
+      this.isPedidos = false;
     }
     if (tipo == 'riders') {
       this.isMapa = false;
       this.isRiders = true;
       this.isEmpresas = false;
+      this.isPedidos = false;
     }
     if (tipo == 'empresas') {
       this.isMapa = false;
       this.isRiders = false;
-      this.isEmpresas = true;      
+      this.isEmpresas = true;
+      this.isPedidos = false;   
+    }
+    if (tipo == 'pedidos') {
+      this.isMapa = false;
+      this.isRiders = false;
+      this.isEmpresas = false;   
+      this.isPedidos = true;   
     }
   }
 

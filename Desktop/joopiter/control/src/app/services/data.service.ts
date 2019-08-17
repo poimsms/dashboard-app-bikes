@@ -35,29 +35,29 @@ export class DataService {
         if (this.vehiculo == 'todo') {
 
           if (tipo == 'riders-inactivos') {
-            return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('isActive', '==', true)).valueChanges()
+            return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('isAccountActive', '==', true)).valueChanges()
           }
 
           if (tipo == 'riders-activos') {
-            return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('isActive', '==', true)).valueChanges()
+            return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('isAccountActive', '==', true)).valueChanges()
           }
 
           if (tipo == 'riders-todos') {
-            return this.db.collection('riders', ref => ref.where('isActive', '==', true)).valueChanges()
+            return this.db.collection('riders', ref => ref.where('isAccountActive', '==', true)).valueChanges()
           }
 
         } else {
 
           if (tipo == 'riders-inactivos') {
-            return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('vehiculo', '==', this.vehiculo).where('isActive', '==', true)).valueChanges()
+            return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
           }
 
           if (tipo == 'riders-activos') {
-            return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('vehiculo', '==', this.vehiculo).where('isActive', '==', true)).valueChanges()
+            return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
           }
 
           if (tipo == 'riders-todos') {
-            return this.db.collection('riders', ref => ref.where('vehiculo', '==', this.vehiculo).where('isActive', '==', true)).valueChanges()
+            return this.db.collection('riders', ref => ref.where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
           }
 
         }

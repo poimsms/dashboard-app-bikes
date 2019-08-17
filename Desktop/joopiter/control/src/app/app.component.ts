@@ -15,7 +15,7 @@ export class AppComponent {
   telefono: number;
   isAuth = false;
   riderNotFound = false;
-  vehiculo = 'Moto';
+  vehiculo = '';
   
   constructor(
     public _control: ControlService,
