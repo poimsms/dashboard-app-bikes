@@ -20,6 +20,10 @@ export class RidersComponent implements OnInit {
   relacion = "Seleccionar";
 
   riders = [];
+  pedidos = [];
+
+  isRiders = true;
+  isBusqueda = false;
 
   error_info_incompleta = false;
   error_telefono = false;
@@ -30,16 +34,20 @@ export class RidersComponent implements OnInit {
   showBusqueda = false;
   showCrearRider = false;
 
-  periodo = { inicio: '', termino: '' };
-
-  filterOptions = {
+  filtro = {
     cuenta: 'activada',
     relacion: 'todo',
-    inicio: '',
-    termino: ''
+    vehiculo: 'todo'
   }
 
-  phoneOptions = {
+  filtro_temp = {
+    cuenta: 'activada',
+    relacion: 'todo',
+    vehiculo: 'todo'
+  }
+
+  filtro_telefono = {
+    telefono: 0,
     inicio: '',
     termino: ''
   }
@@ -75,30 +83,18 @@ export class RidersComponent implements OnInit {
     const start = `${yearPast}-${monthPast}-${dayPast}`;
     const end = `${yearNow}-${monthNow}-${dayNow}`;
 
-    this.filterOptions.inicio = start;
-    this.filterOptions.termino = end;
-
-    this.phoneOptions.inicio = start;
-    this.phoneOptions.termino = end;
-
-    this.periodo.inicio = `${dayPast}/${monthPast}/${yearPast}`;
-    this.periodo.termino = `${dayNow}/${monthNow}/${yearNow}`;
-
+    this.filtro_telefono.inicio = start;
+    this.filtro_telefono.termino = end;
   }
 
   getRiders() {
     
-    this._data.findRiders_using_options(this.filterOptions).then((data: any) => {
-      if (data.ok) {
+    this._data.getRiderByFilter(this.filtro).then((data: any) => {
+     
         this.riders = [];
         this.riders = data.riders;
-        this.periodo = data.periodo;
-        console.log(data.riders, 'riders');
-        console.log(this.periodo, 'riders');
-
-      } else {
-        // fecha incorrecta
-      }
+        console.log(this.riders)
+     
     });
   }
 
@@ -184,20 +180,24 @@ export class RidersComponent implements OnInit {
   }
 
   close_filtros() {
+    this.filtro = JSON.parse(JSON.stringify(this.filtro_temp));
     this.showFiltros = false;
   }
 
   filtrar() {
+    this.filtro_temp = JSON.parse(JSON.stringify(this.filtro));
+    this.showFiltros = false;
     this.getRiders();
-    this.close_filtros();
   }
 
   buscar() {
-    this._data.findRiderByPhone_using_options(this.telefono_search, this.phoneOptions)
-      .then((riders: any) => {
-        this.riders = riders;
-        console.log(riders, 'dd')
-        this.close_busqueda();
+    this._data.findPedidosByPhone(this.filtro_telefono)
+      .then((data: any) => {
+        console.log(data);
+        this.pedidos = data.pedidos;
+        this.isBusqueda = true;
+        this.isRiders = false;
+        this.showBusqueda = false;
       });
   }
 }

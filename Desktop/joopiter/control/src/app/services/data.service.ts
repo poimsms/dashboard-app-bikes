@@ -30,44 +30,58 @@ export class DataService {
     this.apiURL = this._config.apiURL;
 
     this.riders$ = this.rider_query$.pipe(
-      switchMap(tipo => {
+      switchMap((filtro: any) => {
+        console.log(filtro, 'FILTROO')
 
-        if (this.vehiculo == 'todo') {
-
-          if (tipo == 'riders-inactivos') {
-            return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('isAccountActive', '==', true)).valueChanges()
-          }
-
-          if (tipo == 'riders-activos') {
-            return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('isAccountActive', '==', true)).valueChanges()
-          }
-
-          if (tipo == 'riders-todos') {
-            return this.db.collection('riders', ref => ref.where('isAccountActive', '==', true)).valueChanges()
-          }
-
-        } else {
-
-          if (tipo == 'riders-inactivos') {
-            return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
-          }
-
-          if (tipo == 'riders-activos') {
-            return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
-          }
-
-          if (tipo == 'riders-todos') {
-            return this.db.collection('riders', ref => ref.where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
-          }
-
-        }
-
-        if (tipo == 'rastreo') {
-          return this.db.collection('riders', ref => ref.where('rider', '==', this.id)).valueChanges()
-        }
-
+        return this.db.collection('riders_coors', ref =>
+          ref.where(filtro.vehiculo.field, '==', filtro.vehiculo.value)
+            .where(filtro.actividad.field, '==', filtro.actividad.value)
+            .where(filtro.relacion.field, '==', filtro.relacion.value)
+            .where('isActive', '==', true))
+          .valueChanges()
       })
     );
+
+
+    // this.riders$ = this.rider_query$.pipe(
+    //   switchMap(tipo => {
+
+    //     if (this.vehiculo == 'todo') {
+
+    //       if (tipo == 'riders-inactivos') {
+    //         return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('isAccountActive', '==', true)).valueChanges()
+    //       }
+
+    //       if (tipo == 'riders-activos') {
+    //         return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('isAccountActive', '==', true)).valueChanges()
+    //       }
+
+    //       if (tipo == 'riders-todos') {
+    //         return this.db.collection('riders', ref => ref.where('isAccountActive', '==', true)).valueChanges()
+    //       }
+
+    //     } else {
+
+    //       if (tipo == 'riders-inactivos') {
+    //         return this.db.collection('riders', ref => ref.where('actividad', '==', 'inactivo').where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
+    //       }
+
+    //       if (tipo == 'riders-activos') {
+    //         return this.db.collection('riders', ref => ref.where('actividad', '==', 'activo').where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
+    //       }
+
+    //       if (tipo == 'riders-todos') {
+    //         return this.db.collection('riders', ref => ref.where('vehiculo', '==', this.vehiculo).where('isAccountActive', '==', true)).valueChanges()
+    //       }
+
+    //     }
+
+    //     if (tipo == 'rastreo') {
+    //       return this.db.collection('riders', ref => ref.where('rider', '==', this.id)).valueChanges()
+    //     }
+
+    //   })
+    // );
 
   }
 
@@ -125,6 +139,16 @@ export class DataService {
     return this.http.post(url, options).toPromise();
   }
 
+  findPedidosByPhone(filter) {
+    const url = `${this.apiURL}/dashboard/pedidos-get-by-phone`;
+    return this.http.post(url, filter).toPromise();
+  }
+
+  getRiderByFilter(filter) {
+    const url = `${this.apiURL}/dashboard/riders-get-by-filter`;
+    return this.http.post(url, filter).toPromise();
+  }
+
   findRiders_using_options(options) {
     const url = `${this.apiURL}/dashboard/riders-get-all-using-options`;
     return this.http.post(url, options).toPromise();
@@ -150,6 +174,7 @@ export class DataService {
     const url = `${this.apiURL}/dashboard/empresa-create-account`;
     return this.http.post(url, body).toPromise();
   }
+
 
   // ---------------------------
   //        AUXILIAR

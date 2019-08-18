@@ -13,6 +13,12 @@ export class ControlService {
   isEmpresas = false;
   isPedidos = false;
 
+  map_filtros = false;
+  map_tarifas = false;
+  map_tarifas_noche = false;
+  map_tarifas_dia = false;
+  map_horario = false;
+
   constructor(private router: Router) { }
 
   activar(tipo) {

@@ -30,11 +30,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { EmpresasComponent } from './pages/empresas/empresas.component';
-import { CrearComponent } from './pages/crear/crear.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { RidersComponent } from './pages/riders/riders.component';
+import { PopupsHomeComponent } from './components/popups-home/popups-home.component';
 
 @NgModule({
   declarations: [
@@ -42,11 +42,11 @@ import { RidersComponent } from './pages/riders/riders.component';
     HomeComponent,
     LoginComponent,
     EmpresasComponent,
-    CrearComponent,
     HeaderComponent,
     PedidosComponent,
     UsuarioComponent,
-    RidersComponent
+    RidersComponent,
+    PopupsHomeComponent
   ],
   imports: [
     BrowserModule,

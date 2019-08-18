@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ControlService } from './services/control.service';
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
+import { GlobalService } from './services/global.service';
 
 @Component({
   selector: 'app-root',
@@ -16,17 +17,19 @@ export class AppComponent {
   isAuth = false;
   riderNotFound = false;
   vehiculo = '';
+  showPopups = false;
   
   constructor(
     public _control: ControlService,
     private _data: DataService,
     private _auth: AuthService,
-    private router: Router
+    private router: Router,
+    private _global: GlobalService
   ) {
     this._auth.authState.subscribe(data => {
       this.isAuth = data.isAuth;
     });
-    this.getRiders('riders-activos');
+    // this.getRiders('riders-activos');
   }
 
   getRiders(tipo) {
@@ -63,6 +66,29 @@ export class AppComponent {
   openPage(page) {
     this._control.activar(page)
     this.router.navigateByUrl(page);
+  }
+
+  openPopup(tipo) {
+
+    this.showPopups = true;
+
+    if (tipo == 'tarifa noche') {
+      this._control.map_tarifas = true;
+      this._control.map_tarifas_noche = true;
+    }
+
+    if (tipo == 'tarifa dia') {
+      this._control.map_tarifas = true;
+      this._control.map_tarifas_dia = true;
+    }
+
+    if (tipo == 'horario') {
+      this._control.map_horario = true;
+    }
+
+    if (tipo == 'filtros') {
+      this._control.map_filtros = true;
+    }
   }
 
   logout() {
